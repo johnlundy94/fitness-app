@@ -1,15 +1,28 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
+const registerUrl = process.env.REACT_APP_REGISTER_URL;
 
 function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("Submitted");
+    if (
+      username.trim() === "" ||
+      email.trim() === "" ||
+      name.trim() === "" ||
+      password.trim() === ""
+    ) {
+      setMessage("All fields are required");
+      return;
+    }
+    console.log(registerUrl);
   };
 
   return (
@@ -50,6 +63,8 @@ function SignUp() {
         <br />
         <input type="submit" value="Register" />
       </form>
+      <br />
+      {message && <p>{message}</p>}
     </>
   );
 }
