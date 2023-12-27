@@ -11,7 +11,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (
       username.trim() === "" ||
@@ -28,6 +28,31 @@ function SignUp() {
         "x-api-key": process.env.REACT_APP_X_API_KEY,
       },
     };
+
+    const requestBody = {
+      username: username,
+      email: email,
+      name: name,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post(
+        registerUrl,
+        requestBody,
+        requestConfig
+      );
+      setMessage("Registration successful");
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Server not responding");
+      }
+    }
   };
 
   return (
