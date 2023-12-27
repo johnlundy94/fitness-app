@@ -22,7 +22,12 @@ function SignUp() {
       setMessage("All fields are required");
       return;
     }
-    console.log(registerUrl);
+
+    const requestConfig = {
+      headers: {
+        "x-api-key": process.env.REACT_APP_X_API_KEY,
+      },
+    };
   };
 
   return (
