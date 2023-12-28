@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+const loginUrl = process.env.REACT_APP_LOGIN_URL;
+
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,8 +14,16 @@ function SignIn() {
       setErrorMessage("Username and password are required");
       return;
     }
-
-    console.log("Logged In");
+    setErrorMessage(null);
+    const requestConfig = {
+      headers: {
+        "x-api-key": process.env.REACT_APP_X_API_KEY,
+      },
+    };
+    const requestBody = {
+      username: username,
+      password: password,
+    };
   };
 
   return (

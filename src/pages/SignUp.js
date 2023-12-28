@@ -22,7 +22,7 @@ function SignUp() {
       setErrorMessage("All fields are required");
       return;
     }
-
+    setErrorMessage(null);
     const requestConfig = {
       headers: {
         "x-api-key": process.env.REACT_APP_X_API_KEY,
