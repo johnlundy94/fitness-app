@@ -9,7 +9,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ function SignUp() {
       name.trim() === "" ||
       password.trim() === ""
     ) {
-      setMessage("All fields are required");
+      setErrorMessage("All fields are required");
       return;
     }
 
@@ -42,15 +42,15 @@ function SignUp() {
         requestBody,
         requestConfig
       );
-      setMessage("Registration successful");
+      setErrorMessage("Registration successful");
     } catch (error) {
       if (
         error.response &&
         (error.response.status === 401 || error.response.status === 403)
       ) {
-        setMessage(error.response.data.message);
+        setErrorMessage(error.response.data.message);
       } else {
-        setMessage("Server not responding");
+        setErrorMessage("Server not responding");
       }
     }
   };
@@ -91,10 +91,10 @@ function SignUp() {
           onChange={(event) => setPassword(event.target.value)}
         />{" "}
         <br />
-        <input type="submit" value="Register" />
+        <input type="submit" value="Sign Up" />
       </form>
       <br />
-      {message && <p>{message}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
     </>
   );
 }
