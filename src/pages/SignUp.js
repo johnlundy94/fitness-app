@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { setUserSession } from "../service/AuthService";
 
 const registerUrl = process.env.REACT_APP_REGISTER_URL;
 
@@ -10,6 +11,7 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -42,7 +44,8 @@ function SignUp() {
         requestBody,
         requestConfig
       );
-      setErrorMessage("Registration successful");
+      setUserSession(response.data.user, response.data.token);
+      navigate("/questions");
     } catch (error) {
       if (
         error.response &&
