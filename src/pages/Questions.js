@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Logout from "../components/Logout";
 
 function Questions() {
   return (
@@ -7,7 +7,7 @@ function Questions() {
       <br />
       Go back to welcome page
       <br />
-      <Link to="/">Log Out</Link>
+      <Logout />
     </>
   );
 }
